@@ -20,13 +20,13 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Plugins
-call plug#begin('~/.vim/plugged')
+"call plug#begin('~/.vim/plugged')
 "Plug 'nightsense/snow'
-Plug 'arcticicestudio/nord-vim'
-call plug#end()
+"Plug 'arcticicestudio/nord-vim'
+"call plug#end()
 set termguicolors
 
-colorscheme nord 
+colorscheme afterglow
 
 " Sets how many lines of history VIM has to remember
 set history=500
