@@ -1,4 +1,4 @@
-" Sections:
+""i Sections:
 "    -> General
 "    -> VIM user interface
 "    -> Colors and Fonts
@@ -11,7 +11,7 @@
 "    -> vimgrep searching and cope displaying
 "    -> Spell checking
 "    -> Misc
-"    -> Helper functions
+"   -> Helper functions
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -19,11 +19,30 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
 "Plugins
-"call plug#begin('~/.vim/plugged')
-"Plug 'nightsense/snow'
-"Plug 'arcticicestudio/nord-vim'
-"call plug#end()
+call plug#begin()
+
+"Zenmode plugin for distraction free coding / writing v0.5.0 only
+Plug 'folke/zen-mode.nvim'
+
+"NERDtree file explorer
+Plug 'preservim/nerdtree'
+
+
+call plug#end()
+
+lua << EOF
+require("zen-mode").setup{ 
+-- your configuration comes here
+-- or leave it empty to use the default settings
+-- refer to the configuration section below
+}
+EOF
+
 set termguicolors
 
 colorscheme afterglow
@@ -31,9 +50,6 @@ colorscheme afterglow
 " Sets how many lines of history VIM has to remember
 set history=500
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -323,6 +339,8 @@ if has("autocmd")
     autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
 endif
 
+"NERDtree binds
+nnoremap <leader>n :NERDTree<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -405,4 +423,16 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+
+"utilities to verify plug installation and configuration
+function! HasPlug(name) abort
+    return has_key(g:plugs, a:name)
+endfunction
+function! IsPlugInstalled(name) abort
+    return has_key(g:plugs, a:name) && isdirectory(g:plugs[a:name].dir)
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Lua Plugin config
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
